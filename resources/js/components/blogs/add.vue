@@ -35,6 +35,16 @@
               </div>
             </div>
             <div class="form-group">
+              <label>SEO title <small class="text-muted">(≤ 60 ký tự, không đổi URL)</small></label>
+              <vs-input type="text" class="w-100" placeholder="Tiêu đề hiển thị trên Google" v-model="objData.seo_title" maxlength="70" />
+              <small :class="(objData.seo_title || '').length > 60 ? 'text-danger' : 'text-muted'">{{ (objData.seo_title || '').length }}/60</small>
+            </div>
+            <div class="form-group">
+              <label>Meta description <small class="text-muted">(≤ 160 ký tự)</small></label>
+              <vs-textarea v-model="objData.meta_description" placeholder="Mô tả ngắn cho Google" />
+              <small :class="(objData.meta_description || '').length > 160 ? 'text-danger' : 'text-muted'">{{ (objData.meta_description || '').length }}/160</small>
+            </div>
+            <div class="form-group">
               <label>Nội dung</label>
               <TinyMce v-model="objData.content[0].content" />
               <el-button size="small" @click="showSettingLangExist('content')"
@@ -218,6 +228,8 @@ export default {
             content: "",
           },
         ],
+        seo_title: "",
+        meta_description: "",
         cate_product:0,
         status: 1,
         image: "",

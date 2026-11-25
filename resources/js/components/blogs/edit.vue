@@ -28,6 +28,20 @@
                 </div>
               </div>
               <div class="form-group">
+                <label>Đường dẫn (slug) <small class="text-muted">(đổi sẽ tạo redirect 301)</small></label>
+                <vs-input type="text" class="w-100" placeholder="Giữ nguyên nếu để trống khi lưu" v-model="objData.slug" />
+              </div>
+              <div class="form-group">
+                <label>SEO title <small class="text-muted">(≤ 60 ký tự, không đổi URL)</small></label>
+                <vs-input type="text" class="w-100" placeholder="Tiêu đề hiển thị trên Google" v-model="objData.seo_title" maxlength="70" />
+                <small :class="(objData.seo_title || '').length > 60 ? 'text-danger' : 'text-muted'">{{ (objData.seo_title || '').length }}/60</small>
+              </div>
+              <div class="form-group">
+                <label>Meta description <small class="text-muted">(≤ 160 ký tự)</small></label>
+                <vs-textarea v-model="objData.meta_description" placeholder="Mô tả ngắn cho Google" />
+                <small :class="(objData.meta_description || '').length > 160 ? 'text-danger' : 'text-muted'">{{ (objData.meta_description || '').length }}/160</small>
+              </div>
+              <div class="form-group">
                 <label>Nội dung</label>
                 <TinyMce v-model="objData.content[0].content" />
                 <div class="dropLanguage" v-if="showLang.content == true">
@@ -192,6 +206,9 @@ export default {
             content:''
           }
         ],
+        slug: "",
+        seo_title: "",
+        meta_description: "",
         status: 1,
         image: "",
         author: "",
@@ -323,6 +340,9 @@ export default {
            this.objData.content = JSON.parse(response.data.content);
           this.objData.description = JSON.parse(response.data.description);
           this.objData.title = JSON.parse(response.data.title);
+          this.objData.slug = response.data.slug || '';
+          this.objData.seo_title = response.data.seo_title || '';
+          this.objData.meta_description = response.data.meta_description || '';
           const hs = this.objData.home_status;
           this.objData.home_status =
             hs === undefined || hs === null || hs === '' ? 1 : Number(hs);

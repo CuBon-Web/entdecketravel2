@@ -15,41 +15,46 @@ use Session;
 
 class BlogController extends Controller
 {
-    public function list()
-    {
-        $data['blog'] = Blog::where(['status'=>1])
-        ->orderBy('id','DESC')
-        ->select(['id','title','image','description','created_at','slug'])
-        ->paginate(12);
-        $data['title_page'] = 'Tin tức cập nhật';
-        return view('blog.list',$data);
-    }
     public function listCateBlog($slug)
     {
+        $cate = BlogCategory::where('slug', $slug)->first(['name','avatar','slug','seo_title','meta_description']);
+        if (!$cate) {
+            abort(404);
+        }
+
         $data['blog'] = Blog::with(['cate'])->where(['status'=>1,'category'=>$slug])
         ->orderBy('id','DESC')
         ->select(['id','title','image','description','created_at','slug'])
         ->paginate(12);
         $data['blognew'] = Blog::where(['status'=>1])->orderBy('id','DESC')->limit(5)->get();
-        $cate = BlogCategory::where('slug', $slug)->first(['name','avatar']);
         $data['gallery'] = AlbumAffter::where('status',1)->limit(6)->get();
         $data['title_page'] = languageName($cate->name);
+        $data['seo_title'] = $cate->seo_title ?? '';
+        $data['meta_description'] = $cate->meta_description ?? '';
         $data['bannerPage'] = $cate->avatar ?? '';
         return view('blog.listBlogCate',$data);
     }
     public function listTypeBlog($slug)
     {
+        $cate = BlogTypeCate::where('slug', $slug)->first(['name']);
+        if (!$cate) {
+            abort(404);
+        }
+
         $data['blog'] = Blog::where(['status'=>1,'type_cate'=>$slug])
         ->orderBy('id','DESC')
         ->select(['id','title','image','description','created_at','slug'])
         ->paginate(9);
-        $cate = BlogTypeCate::where('slug', $slug)->first(['name']);
         $data['title_page'] = languageName($cate->name);
         return view('blog.listBlogCate',$data);
     }
     public function detailBlog($slug)
     {
         $data['blog_detail'] = Blog::with('cate')->where(['slug' => $slug])->first();
+        if (!$data['blog_detail']) {
+            abort(404);
+        }
+
         $data['blognew'] = Blog::where(['status' => 1])->orderBy('id','DESC')->limit(5)->get();
         $data['gallery'] = AlbumAffter::where('status',1)->limit(6)->get();
         $data['bloglq'] = Blog::where(['status' => 1,'category'=>$data['blog_detail']->category])->limit(4)->get();

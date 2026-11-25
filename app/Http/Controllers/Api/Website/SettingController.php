@@ -47,6 +47,10 @@ class SettingController extends Controller
 			$setting->statusImgHeader  = $request->statusImgHeader;
 			$setting->imgHeader  = $request->imgHeader;
 			$setting->linkImgHeader  = $request->linkImgHeader;
+			$setting->seo_title  = $request->seo_title;
+			$setting->meta_description  = $request->meta_description;
+			$setting->ga4_id  = $request->ga4_id;
+			$setting->gtm_id  = $request->gtm_id;
 	    	$setting->save();
         }else {
 
@@ -75,6 +79,10 @@ class SettingController extends Controller
 			$setting->statusImgHeader  = $request->statusImgHeader;
 			$setting->imgHeader  = $request->imgHeader;
 			$setting->linkImgHeader  = $request->linkImgHeader;
+			$setting->seo_title  = $request->seo_title;
+			$setting->meta_description  = $request->meta_description;
+			$setting->ga4_id  = $request->ga4_id;
+			$setting->gtm_id  = $request->gtm_id;
 	    	$setting->save();
         }
         return response()->json([

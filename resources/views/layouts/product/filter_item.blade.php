@@ -40,13 +40,7 @@
                                 <span class="trv-tour-review-count">Price</span>
                                 <div class="trv-review-rating">
                                     <i>
-                                        @if ((int) languageName($item->discount) > 0)
-                                            {{ number_format(languageName($item->discount)) }}VND
-                                        @elseif ((int) languageName($item->price) > 0)
-                                            {{ number_format(languageName($item->price)) }}VND
-                                        @else
-                                            Contact
-                                        @endif
+                                        {{ formatTourPrice(tourCardPrice(languageName($item->discount), languageName($item->price))) }}
                                     </i>
                                 </div>
                             </div>

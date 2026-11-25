@@ -1,6 +1,6 @@
 @php
     $footerLogo = $setting->logo ?: $setting->logo_footer;
-    $footerCompany = $setting->company ?: 'Entdecke Travel';
+    $footerCompany = $setting->company ?: 'Entdecke Vietnam';
     $footerDesc = $setting->webname ?: $footerCompany;
     $footerPhone = trim((string) ($setting->phone1 ?? ''));
     $footerTel = preg_replace('/\s+/', '', $footerPhone);
@@ -51,7 +51,10 @@
                                 <li><a href="{{ route('aboutUs') }}">About Us</a></li>
                                 <li><a href="{{ route('destination') }}">Destinations</a></li>
                                 <li><a href="{{ route('gallery') }}">Gallery</a></li>
-                                <li><a href="{{ route('allListBlog') }}">Latest Blogs</a></li>
+                                @php $footerBlogCate = collect($blogCate ?? [])->first(); @endphp
+                                @if($footerBlogCate)
+                                <li><a href="{{ route('listCateBlog', ['slug' => $footerBlogCate->slug]) }}">Latest Blogs</a></li>
+                                @endif
                                 <li class="mb-0"><a href="{{ route('lienHe') }}">Contact Us</a></li>
                             </ul>
                         </div>

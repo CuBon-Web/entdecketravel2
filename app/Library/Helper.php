@@ -229,3 +229,180 @@ if (!function_exists('resizeImage')) {
         }
     }
 }
+
+if (!function_exists('normalizeRedirectPath')) {
+    function normalizeRedirectPath($urlOrPath)
+    {
+        $value = trim((string) $urlOrPath);
+        if ($value === '') {
+            return '';
+        }
+
+        if (preg_match('#^https?://#i', $value)) {
+            $parts = parse_url($value);
+            $value = ($parts['path'] ?? '/');
+            if (!empty($parts['query'])) {
+                $value .= '?' . $parts['query'];
+            }
+        }
+
+        $value = '/' . ltrim($value, '/');
+        if ($value !== '/') {
+            $value = rtrim($value, '/');
+        }
+
+        return $value === '' ? '/' : $value;
+    }
+}
+
+if (!function_exists('recordUrlRedirect')) {
+    /**
+     * Store a permanent redirect when a public URL changes.
+     */
+    function recordUrlRedirect($fromUrl, $toUrl, $statusCode = 301)
+    {
+        $from = normalizeRedirectPath($fromUrl);
+        $to = normalizeRedirectPath($toUrl);
+
+        if ($from === '' || $to === '' || $from === $to || $from === '/') {
+            return false;
+        }
+
+        try {
+            if (!\Illuminate\Support\Facades\Schema::hasTable('url_redirects')) {
+                return false;
+            }
+
+            // Collapse chains: anything that pointed to the old path now points to the new one.
+            \App\models\website\UrlRedirect::where('to_path', $from)->update(['to_path' => $to]);
+
+            $existing = \App\models\website\UrlRedirect::where('from_path', $from)->first();
+            if ($existing) {
+                $existing->to_path = $to;
+                $existing->status_code = $statusCode;
+                $existing->save();
+            } else {
+                \App\models\website\UrlRedirect::create([
+                    'from_path' => $from,
+                    'to_path' => $to,
+                    'status_code' => $statusCode,
+                    'hits' => 0,
+                ]);
+            }
+
+            // Avoid redirect loops.
+            \App\models\website\UrlRedirect::where('from_path', $to)->where('to_path', $from)->delete();
+
+            return true;
+        } catch (\Throwable $e) {
+            return false;
+        }
+    }
+}
+
+if (!function_exists('buildFaqSchemaMainEntity')) {
+    /**
+     * Build FAQPage mainEntity list from settings footer_content.
+     */
+    function buildFaqSchemaMainEntity($footerContent)
+    {
+        $items = [];
+        $groups = is_string($footerContent) ? (json_decode($footerContent) ?: []) : ($footerContent ?: []);
+
+        foreach ($groups as $group) {
+            foreach (($group->fag_detail ?? []) as $faq) {
+                $question = trim(strip_tags((string) ($faq->name ?? '')));
+                $answer = trim(strip_tags((string) ($faq->content ?? '')));
+                if ($question === '' || $answer === '') {
+                    continue;
+                }
+                $items[] = [
+                    '@type' => 'Question',
+                    'name' => $question,
+                    'acceptedAnswer' => [
+                        '@type' => 'Answer',
+                        'text' => $answer,
+                    ],
+                ];
+            }
+        }
+
+        return $items;
+    }
+}
+
+if (!function_exists('seoTitle')) {
+    /**
+     * Prefer dedicated SEO title, fall back to display title.
+     */
+    function seoTitle($seoTitle, $fallback = '')
+    {
+        $seoTitle = trim(strip_tags((string) $seoTitle));
+        if ($seoTitle !== '') {
+            return $seoTitle;
+        }
+
+        return trim(strip_tags((string) $fallback));
+    }
+}
+
+if (!function_exists('seoDescription')) {
+    /**
+     * Prefer dedicated meta description, fall back to short text.
+     */
+    function seoDescription($seoDescription, $fallback = '', $limit = 160)
+    {
+        $seoDescription = trim(strip_tags((string) $seoDescription));
+        if ($seoDescription !== '') {
+            return \Illuminate\Support\Str::limit($seoDescription, $limit, '');
+        }
+
+        $fallback = trim(strip_tags((string) $fallback));
+        return \Illuminate\Support\Str::limit($fallback, $limit, '');
+    }
+}
+
+if (!function_exists('formatTourPrice')) {
+    /**
+     * Format tour price as USD. Zero/empty => "Price on request".
+     *
+     * @param  mixed  $price
+     * @param  bool   $withUnit  Append " / person" when price > 0
+     * @return string
+     */
+    function formatTourPrice($price, $withUnit = true)
+    {
+        $amount = (float) $price;
+        if ($amount <= 0) {
+            return 'Price on request';
+        }
+
+        $formatted = 'US$ ' . number_format($amount);
+        if ($withUnit) {
+            $formatted .= ' / person';
+        }
+
+        return $formatted;
+    }
+}
+
+if (!function_exists('tourCardPrice')) {
+    /**
+     * Pick display amount for tour cards (sale/discount first, then regular price).
+     *
+     * @param  mixed  $discount
+     * @param  mixed  $price
+     * @return float
+     */
+    function tourCardPrice($discount, $price)
+    {
+        $discountAmount = (float) $discount;
+        $priceAmount = (float) $price;
+
+        if ($discountAmount > 0) {
+            return $discountAmount;
+        }
+
+        return $priceAmount;
+    }
+}

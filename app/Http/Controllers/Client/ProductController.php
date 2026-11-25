@@ -263,10 +263,15 @@ class ProductController extends Controller
         }
 
         $data['list'] = $this->applyListFilters($request, $product)->paginate(12)->appends($request->query());
-        $data['cateno'] = Category::where('slug',$danhmuc)->first(['id','name','avatar','content','slug']);
+        $data['cateno'] = Category::where('slug',$danhmuc)->first(['id','name','avatar','content','slug','seo_title','meta_description']);
+        if (!$data['cateno']) {
+            abort(404);
+        }
         
         $data['bannerPage'] = $data['cateno']->avatar ?? '';
         $data['title'] = languageName($data['cateno']->name);
+        $data['seo_title'] = $data['cateno']->seo_title ?? '';
+        $data['meta_description'] = $data['cateno']->meta_description ?? '';
         $data['content'] = $data['cateno']->content;
         $data['cate_slug'] = $data['cateno']->slug;
         $data['type_slug'] = '';
@@ -279,8 +284,10 @@ class ProductController extends Controller
             ->select('id','category','name','discount','price','images','slug','cate_slug','type_slug','description','status_variant','variant','hang_muc','origin','thickness');
         $data['list'] = $this->applyListFilters($request, $product)->paginate(20)->appends($request->query());
         $data['type'] = TypeProduct::where('slug',$loaidanhmuc)->first(['id','name','cate_id','content','slug']);
-        $cate_id = $data['type']->cate_id;
         $data['cateno'] = Category::where('slug',$danhmuc)->first(['id','name','avatar','content','slug']);
+        if (!$data['type'] || !$data['cateno']) {
+            abort(404);
+        }
         $data['filter'] = TagCate::with(['tags'])->get();
         
         $data['cate_slug'] = $data['cateno']->slug;
@@ -298,6 +305,9 @@ class ProductController extends Controller
         $data['typetwo'] = TypeProductTwo::where('slug',$thuonghieu)->first(['id','name','cate_id','content','slug']);
         $data['cateno'] = Category::where('slug',$danhmuc)->first(['id','name','avatar','content','slug']);
         $data['type'] = TypeProduct::where('slug',$loaidanhmuc)->first(['id','name','cate_id','content','slug']);
+        if (!$data['typetwo'] || !$data['cateno'] || !$data['type']) {
+            abort(404);
+        }
 
         $data['cate_slug'] = $data['cateno']->slug;
         $data['type_slug'] = $data['type']->slug;
@@ -315,6 +325,9 @@ class ProductController extends Controller
             $data['list'] = $this->applyListFilters($request, $product)->paginate(12)->appends($request->query());
             
             $tag = Tags::where('slug',$tag)->first();
+            if (!$tag) {
+                abort(404);
+            }
             $data['cateno'] = Category::where('id',$tag->cate_product_id)->first(['id','name','avatar','content','slug']);
             // $cate_id = $data['cateno']->id;
             // $data['cateid'] = $cate_id;
@@ -472,6 +485,9 @@ class ProductController extends Controller
                 $query->where('status',1)->limit(5)->select('id','name','avatar','slug'); 
             },
         ])->where('slug',$id)->first();
+        if (!$data['product']) {
+            abort(404);
+        }
        $data['terms'] = PageContent::where(['slug'=>'booking-terms-conditions','language'=>'vi'])->first(['id','title','content']);
         // $data['goiy'] = Product::where('status',1)->limit(8)->get(['id','name','images','discount','price','slug','cate_slug','type_slug']);
         $data['productlq'] = Product::where('category',$data['product']->category)->limit(8)->get(['id','category','name','status_variant','discount','price','images','slug','cate_slug','type_slug','description']);

@@ -30,18 +30,44 @@ class BlogCategory extends Model
                 // if(file_exists( public_path().$file ) ){
                 //     \File::delete($filename);
                 // }
+                $oldSlug = $query->slug;
+                $oldUrl = null;
+                if (!empty($oldSlug)) {
+                    try {
+                        $oldUrl = route('listCateBlog', ['slug' => $oldSlug]);
+                    } catch (\Throwable $e) {
+                        $oldUrl = null;
+                    }
+                }
                 $query->name = json_encode($request->name);
                 $query->path = $request->path;
-                $query->slug = to_slug($request->name[0]['content']);
+                $requestedSlug = trim((string) ($request->slug ?? ''));
+                if ($requestedSlug !== '') {
+                    $query->slug = to_slug($requestedSlug);
+                } elseif (empty($query->slug)) {
+                    $query->slug = to_slug($request->name[0]['content']);
+                }
+                $query->seo_title = $request->seo_title ?? null;
+                $query->meta_description = $request->meta_description ?? null;
                 $query->status = $request->status;
                 $query->avatar = $request->avatar;
                 $query->save();
+                if ($oldUrl && !empty($query->slug) && $oldSlug !== $query->slug) {
+                    try {
+                        recordUrlRedirect($oldUrl, route('listCateBlog', ['slug' => $query->slug]));
+                        Blog::where('category', $oldSlug)->update(['category' => $query->slug]);
+                    } catch (\Throwable $e) {
+                        // ignore
+                    }
+                }
             }else{
                 $query = new BlogCategory();
                 $query->name = json_encode($request->name);
                 $query->path = $request->path;
                 $query->status = $request->status;
                 $query->slug = to_slug($request->name[0]['content']);
+                $query->seo_title = $request->seo_title ?? null;
+                $query->meta_description = $request->meta_description ?? null;
                 $query->avatar = $request->avatar;
                 $query->save();
             }
@@ -51,6 +77,8 @@ class BlogCategory extends Model
                 $query->name = json_encode($request->name);
                 $query->path = $request->path;
                 $query->slug = to_slug($request->name[0]['content']);
+                $query->seo_title = $request->seo_title ?? null;
+                $query->meta_description = $request->meta_description ?? null;
                 $query->status = $request->status;
                 $query->avatar = $request->avatar;
                 $query->save();

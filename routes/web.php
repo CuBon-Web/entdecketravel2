@@ -19,6 +19,7 @@ Route::get('/clear-cache', function() {
 });
 Route::get('/sitemap.xml', 'SeoController@sitemap')->name('sitemap');
 Route::get('/robots.txt', 'SeoController@robots')->name('robots');
+Route::get('/llms.txt', 'SeoController@llms')->name('llms');
 Route::get('/crm', function () {
     return view('app');
 });
@@ -88,7 +89,6 @@ Route::group(['namespace'=>'Client','middleware' => ['checkLanguage']], function
     Route::get('auth/facebook', 'FacebookController@redirectToFacebook')->name('loginFacebook');
     Route::get('auth/facebook/callback', 'FacebookController@handleFacebookCallback'); 
     Route::group(['prefix'=>'news'], function(){
-        Route::get('/all.html','BlogController@list')->name('allListBlog');
         Route::get('category/{slug}.html','BlogController@listCateBlog')->name('listCateBlog');
         Route::get('type-category/{slug}.html','BlogController@listTypeBlog')->name('listTypeBlog');
         Route::get('detail/{slug}.html','BlogController@detailBlog')->name('detailBlog');

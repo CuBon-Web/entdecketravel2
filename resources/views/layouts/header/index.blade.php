@@ -3,13 +3,13 @@
         <div class="container">
             <!-- Logo Start -->
             <a class="navbar-brand sisf-header-logo-link mobile-block" href="{{route('home')}}">
-                <img src="{{$setting->logo}}" alt="Logo">
+                <img src="{{ url('' . $setting->logo) }}" alt="{{ $setting->company ?? 'Logo' }}">
             </a>
             <!-- Logo End -->
             <div class="sisf-centered-header-wrapper sisf--header d-flex justify-content-between align-items-center">
                 <!-- Logo Start -->
                 <a class="navbar-brand sisf-header-logo-link" href="{{route('home')}}">
-                    <img src="{{$setting->logo}}" alt="Logo">
+                    <img src="{{ url('' . $setting->logo) }}" alt="{{ $setting->company ?? 'Logo' }}">
                 </a>
                 <!-- Logo End -->
                 <nav class="navbar navbar-expand-lg ms-auto me-4">

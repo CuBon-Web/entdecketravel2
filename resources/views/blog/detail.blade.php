@@ -1,9 +1,9 @@
 @extends('layouts.main.master')
 @section('title')
-{{ languageName($blog_detail->title) }}
+{{ seoTitle($blog_detail->seo_title ?? '', languageName($blog_detail->title)) }}
 @endsection
 @section('description')
-{{ languageName($blog_detail->description) }}
+{{ seoDescription($blog_detail->meta_description ?? '', languageName($blog_detail->description)) }}
 @endsection
 @section('image')
 {{ url('' . $blog_detail->image) }}
@@ -58,10 +58,10 @@
                 <div class="sisf-breadcrumbs mb-2">
                     <a class="sisf-breadcrumbs-link text-white" href="{{ route('home') }}"><span>Home</span></a>
                     <span class="sisf-breadcrumbs-separator text-white mx-2"><i class="fa-solid fa-chevron-right"></i></span>
-                    <a class="sisf-breadcrumbs-link text-white" href="{{ route('allListBlog') }}"><span>Blog</span></a>
                     @if($cateSlug)
-                    <span class="sisf-breadcrumbs-separator text-white mx-2"><i class="fa-solid fa-chevron-right"></i></span>
-                    <a class="sisf-breadcrumbs-link text-white" href="{{ route('listCateBlog', ['slug' => $cateSlug]) }}"><span>{{ $cateName }}</span></a>
+                    <a class="sisf-breadcrumbs-link text-white" href="{{ route('listCateBlog', ['slug' => $cateSlug]) }}"><span>{{ $cateName ?: 'Blog' }}</span></a>
+                    @else
+                    <span class="sisf-breadcrumbs-current text-white">Blog</span>
                     @endif
                     <span class="sisf-breadcrumbs-separator text-white mx-2"><i class="fa-solid fa-chevron-right"></i></span>
                     <span class="sisf-breadcrumbs-current text-white">{{ \Illuminate\Support\Str::limit($blogTitle, 48) }}</span>

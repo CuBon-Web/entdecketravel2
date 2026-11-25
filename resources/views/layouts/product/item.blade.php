@@ -70,13 +70,7 @@
                     </div>
                     <div class="sis-tour-item__price">
                         <h3 class="mb-0 sisf-e-colored">
-                            @if ($itemDiscount > 0)
-                                {{ number_format($itemDiscount) }} VND
-                            @elseif ($itemPrice > 0)
-                                {{ number_format($itemPrice) }} VND
-                            @else
-                                Contact Us
-                            @endif
+                            {{ formatTourPrice(tourCardPrice($itemDiscount, $itemPrice)) }}
                         </h3>
                     </div>
                 </div>

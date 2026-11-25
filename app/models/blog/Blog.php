@@ -33,6 +33,14 @@ class Blog extends Model
                 // if(file_exists( public_path().$file ) ){
                 //     \File::delete($filename);
                 // }
+                $oldUrl = null;
+                if (!empty($query->slug)) {
+                    try {
+                        $oldUrl = route('detailBlog', ['slug' => $query->slug]);
+                    } catch (\Throwable $e) {
+                        $oldUrl = null;
+                    }
+                }
                 $query->title = json_encode($request->title);
                 $query->content = json_encode($request->content);
                 $query->description = json_encode($request->description);
@@ -43,9 +51,23 @@ class Blog extends Model
                 $query->type_news = $request->type_news;
                 $query->home_status = (int) $request->input('home_status', 0);
                 $query->image = $request->image;
-                $query->slug = to_slug($request->title[0]['content']);
+                $query->seo_title = $request->seo_title ?? null;
+                $query->meta_description = $request->meta_description ?? null;
+                $requestedSlug = trim((string) ($request->slug ?? ''));
+                if ($requestedSlug !== '') {
+                    $query->slug = to_slug($requestedSlug);
+                } elseif (empty($query->slug)) {
+                    $query->slug = to_slug($request->title[0]['content']);
+                }
                 $query->author = Auth::user()->name;
                 $query->save();
+                if ($oldUrl && !empty($query->slug)) {
+                    try {
+                        recordUrlRedirect($oldUrl, route('detailBlog', ['slug' => $query->slug]));
+                    } catch (\Throwable $e) {
+                        // ignore
+                    }
+                }
             }else{
                 $query = new Blog();
                 $query->title = json_encode($request->title);
@@ -58,6 +80,8 @@ class Blog extends Model
                 $query->status = $request->status;
                 $query->type_news = $request->type_news;
                 $query->home_status = (int) $request->input('home_status', 0);
+                $query->seo_title = $request->seo_title ?? null;
+                $query->meta_description = $request->meta_description ?? null;
                 $query->slug = to_slug($request->title[0]['content']);
                 $query->author = Auth::user()->name;
                 $query->save();
@@ -75,6 +99,8 @@ class Blog extends Model
                 $query->cate_product = $request->cate_product;
                 $query->status = $request->status;
                 $query->home_status = (int) $request->input('home_status', 0);
+                $query->seo_title = $request->seo_title ?? null;
+                $query->meta_description = $request->meta_description ?? null;
                 $query->slug = to_slug($request->title[0]['content']);
                 $query->author = Auth::user()->name;
                 $query->save();

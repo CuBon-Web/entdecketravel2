@@ -133,7 +133,8 @@
                         </g>
                     </svg>
                 </div>
-                <a href="{{route('allListBlog')}}">Tin tức</a>
+                @php $navBlogCate = collect($blogCate ?? [])->first(); @endphp
+                <a href="{{ $navBlogCate ? route('listCateBlog', ['slug' => $navBlogCate->slug]) : route('home') }}">Tin tức</a>
             </div>
         </div>
         <div class="itembar" onclick="location.href='/account/orders';">

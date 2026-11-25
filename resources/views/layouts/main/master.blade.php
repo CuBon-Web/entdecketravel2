@@ -1,38 +1,69 @@
 <!-- https://traviox-html.wpthemeverse.com/home-slider.html -->
 <!DOCTYPE html>
-<html lang="vi" data-x="html" data-x-toggle="html-overflow-hidden">
+<html lang="en" data-x="html" data-x-toggle="html-overflow-hidden">
    <head>
       @php
-         $seoTitle = strip_tags(trim($__env->yieldContent('title', config('app.name'))));
-         $seoDescriptionRaw = trim($__env->yieldContent('description', config('app.name')));
+         $brandName = config('app.name', 'Entdecke Vietnam');
+         // Decode once: child @section often uses {{ }} which already escapes & → &amp;
+         $seoTitle = html_entity_decode(strip_tags(trim($__env->yieldContent('title', $brandName))), ENT_QUOTES | ENT_HTML5, 'UTF-8');
+         $seoDescriptionRaw = html_entity_decode(trim($__env->yieldContent('description', $brandName)), ENT_QUOTES | ENT_HTML5, 'UTF-8');
          $seoDescription = \Illuminate\Support\Str::limit(strip_tags($seoDescriptionRaw), 160, '');
          $seoImage = trim($__env->yieldContent('image', url('' . $setting->favicon)));
          $seoCanonical = trim($__env->yieldContent('canonical', url()->current()));
          $seoRobots = trim($__env->yieldContent('robots', 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1'));
+         $ga4Id = trim((string) ($setting->ga4_id ?? ''));
+         $gtmId = trim((string) ($setting->gtm_id ?? ''));
+         if ($ga4Id !== '' && !preg_match('/^G-[A-Z0-9]+$/i', $ga4Id)) {
+            $ga4Id = '';
+         }
+         if ($gtmId !== '' && !preg_match('/^GTM-[A-Z0-9]+$/i', $gtmId)) {
+            $gtmId = '';
+         }
       @endphp
       <meta charset="UTF-8" />
+      @if($gtmId !== '')
+      <!-- Google Tag Manager -->
+      <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+      new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+      'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+      })(window,document,'script','dataLayer','{{ $gtmId }}');</script>
+      <!-- End Google Tag Manager -->
+      @endif
+      @if($ga4Id !== '')
+      <!-- Google Analytics 4 -->
+      <script async src="https://www.googletagmanager.com/gtag/js?id={{ $ga4Id }}"></script>
+      <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', '{{ $ga4Id }}');
+      </script>
+      <!-- End Google Analytics 4 -->
+      @endif
       <meta name="viewport" content="width=device-width, initial-scale=1" />
       <title>{{ $seoTitle }}</title>
       <meta name="description" content="{{ $seoDescription }}" />
       <meta name="robots" content="{{ $seoRobots }}" />
       <meta name="googlebot" content="{{ $seoRobots }}" />
       <meta name="theme-color" content="#ed3235" />
-      <meta name="author" content="{{ config('app.name') }}" />
-      <meta name="application-name" content="{{ config('app.name') }}" />
-      <meta http-equiv="Content-Language" content="vi" />
+      <meta name="author" content="{{ $brandName }}" />
+      <meta name="application-name" content="{{ $brandName }}" />
+      <meta http-equiv="Content-Language" content="en" />
       <link rel="canonical" href="{{ $seoCanonical }}" />
-      <link rel="alternate" href="{{ $seoCanonical }}" hreflang="vi-VN" />
+      <link rel="alternate" href="{{ $seoCanonical }}" hreflang="en" />
       <link rel="alternate" href="{{ $seoCanonical }}" hreflang="x-default" />
+      <link rel="describedby" href="/llms.txt" type="text/plain" />
 
       <meta property="og:type" content="website" />
-      <meta property="og:locale" content="vi_VN" />
+      <meta property="og:locale" content="en_US" />
       <meta property="og:url" content="{{ $seoCanonical }}" />
       <meta property="og:title" content="{{ $seoTitle }}" />
       <meta property="og:description" content="{{ $seoDescription }}" />
       <meta property="og:image" content="{{ $seoImage }}" />
       <meta property="og:image:secure_url" content="{{ $seoImage }}" />
       <meta property="og:image:alt" content="{{ $seoTitle }}" />
-      <meta property="og:site_name" content="{{ config('app.name') }}" />
+      <meta property="og:site_name" content="{{ $brandName }}" />
 
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:title" content="{{ $seoTitle }}" />
@@ -50,7 +81,7 @@
       {!! json_encode([
          '@context' => 'https://schema.org',
          '@type' => 'Organization',
-         'name' => config('app.name'),
+         'name' => $brandName,
          'url' => url('/'),
          'logo' => url('' . $setting->logo),
       ], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) !!}
@@ -59,8 +90,13 @@
       {!! json_encode([
          '@context' => 'https://schema.org',
          '@type' => 'WebSite',
-         'name' => config('app.name'),
+         'name' => $brandName,
+         'inLanguage' => 'en',
          'url' => url('/'),
+         'publisher' => [
+            '@type' => 'Organization',
+            'name' => $brandName,
+         ],
          'potentialAction' => [
             '@type' => 'SearchAction',
             'target' => url('/') . '?q={search_term_string}',
@@ -111,6 +147,12 @@
       </style>
    </head>
    <body>
+      @if($gtmId !== '')
+      <!-- Google Tag Manager (noscript) -->
+      <noscript><iframe src="https://www.googletagmanager.com/ns.html?id={{ $gtmId }}"
+      height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+      <!-- End Google Tag Manager (noscript) -->
+      @endif
       <!-- Preloader Start -->
     <div class="sis-preloader">
         <div class="sis-loading-container rounded-0">

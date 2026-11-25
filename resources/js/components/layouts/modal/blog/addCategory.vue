@@ -23,6 +23,14 @@
         </div>
       </div>
       <div class="form-group">
+        <label>SEO title <small class="text-muted">(≤ 60 ký tự)</small></label>
+        <vs-input class="w-100" v-model="objData.seo_title" placeholder="Tiêu đề hiển thị trên Google" maxlength="70" />
+      </div>
+      <div class="form-group">
+        <label>Meta description <small class="text-muted">(≤ 160 ký tự)</small></label>
+        <vs-textarea v-model="objData.meta_description" placeholder="Mô tả ngắn cho Google" />
+      </div>
+      <div class="form-group">
         <vs-input
           class="w-100"
           v-model="objData.path"
@@ -70,6 +78,8 @@ export default {
             content:''
           }
         ],
+        seo_title: "",
+        meta_description: "",
         path: "",
         avatar: "",
         status: ""

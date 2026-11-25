@@ -71,7 +71,7 @@
                          <div class="col-auto">
                            <div class="text-14 text-light-1">
                               {{getLanguage('StartingForm')}}
-                             <span class="text-16 fw-500 text-dark-1"> {{number_format(languageName($item['price']))}}{{getLanguage('tiente')}}</span>
+                             <span class="text-16 fw-500 text-dark-1">{{ formatTourPrice(languageName($item['price'])) }}</span>
                            </div>
                          </div>
                        </div>

@@ -5,6 +5,20 @@ FAQ | {{ $setting->company }}
 @section('description')
 FAQ | {{ $setting->webname }}
 @endsection
+@section('schema')
+@php
+    $faqSchemaEntity = buildFaqSchemaMainEntity($setting->footer_content ?? []);
+@endphp
+@if(count($faqSchemaEntity) > 0)
+<script type="application/ld+json">
+{!! json_encode([
+   '@context' => 'https://schema.org',
+   '@type' => 'FAQPage',
+   'mainEntity' => $faqSchemaEntity,
+], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) !!}
+</script>
+@endif
+@endsection
 @section('css')
 @endsection
 @section('js')

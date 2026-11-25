@@ -24,6 +24,23 @@
                   />
                 </div>
                 <div class="form-group">
+                  <label>SEO title trang chủ <small class="text-muted">(≤ 60 ký tự)</small></label>
+                  <vs-input
+                    type="text"
+                    size="default"
+                    class="w-100"
+                    v-model="objData.seo_title"
+                    placeholder="Tiêu đề Google cho trang chủ"
+                    maxlength="70"
+                  />
+                  <small :class="(objData.seo_title || '').length > 60 ? 'text-danger' : 'text-muted'">{{ (objData.seo_title || '').length }}/60</small>
+                </div>
+                <div class="form-group">
+                  <label>Meta description trang chủ <small class="text-muted">(≤ 160 ký tự)</small></label>
+                  <vs-textarea v-model="objData.meta_description" placeholder="Mô tả Google cho trang chủ" />
+                  <small :class="(objData.meta_description || '').length > 160 ? 'text-danger' : 'text-muted'">{{ (objData.meta_description || '').length }}/160</small>
+                </div>
+                <div class="form-group">
                   <label>Văn phòng đại diện</label>
                   <vs-input
                     type="text"
@@ -105,6 +122,28 @@
                     class="w-100"
                     v-model="objData.google"
                   />
+                </div>
+                <div class="form-group">
+                  <label>Google Analytics 4</label>
+                  <vs-input
+                    type="text"
+                    size="default"
+                    class="w-100"
+                    v-model="objData.ga4_id"
+                    placeholder="G-XXXXXXXXXX"
+                  />
+                  <small class="text-muted">Measurement ID (bắt đầu bằng G-)</small>
+                </div>
+                <div class="form-group">
+                  <label>Google Tag Manager</label>
+                  <vs-input
+                    type="text"
+                    size="default"
+                    class="w-100"
+                    v-model="objData.gtm_id"
+                    placeholder="GTM-XXXXXXX"
+                  />
+                  <small class="text-muted">Container ID (bắt đầu bằng GTM-)</small>
                 </div>
                 
                 <div class="form-group">
@@ -233,6 +272,8 @@ export default {
         {
             webname : "",
             company : "",
+            seo_title: "",
+            meta_description: "",
             address1: "",
             address2 : "",
             phone1 : "",
@@ -242,6 +283,8 @@ export default {
             facebook : "",
             google : "",
             GA : "",
+            ga4_id: "",
+            gtm_id: "",
             fbPixel : "",
             iframe_map : "",
             favicon : "",
@@ -319,6 +362,10 @@ export default {
         
         this.loadings(false);
         this.objData = response.data;
+        this.objData.seo_title = response.data.seo_title || '';
+        this.objData.meta_description = response.data.meta_description || '';
+        this.objData.ga4_id = response.data.ga4_id || '';
+        this.objData.gtm_id = response.data.gtm_id || '';
         this.objData.popupimage = JSON.parse(response.data.popupimage);
         if(response.data.footer_content == null){
             this.objData.footer_content = [{

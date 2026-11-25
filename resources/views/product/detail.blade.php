@@ -1,9 +1,9 @@
 @extends('layouts.main.master')
 @section('title')
-{{$product->name}}
+{{ seoTitle($product->seo_title ?? '', languageName($product->name)) }}
 @endsection
 @section('description')
-{{languageName($product->description)}}
+{{ seoDescription($product->meta_description ?? '', languageName($product->description)) }}
 @endsection
 @section('image')
 @php
@@ -16,40 +16,118 @@ $ingredient = json_decode($product->ingredient);
 {{url(''.$img[0])}}
 @endsection
 @section('schema')
+@php
+    $schemaName = languageName($product->name);
+    $schemaDesc = strip_tags((string) languageName($product->description));
+    $schemaImage = !empty($img[0]) ? url('' . $img[0]) : url('' . ($setting->logo ?? ''));
+    $schemaPrice = (float) languageName($product->price);
+    $schemaBrand = config('app.name', 'Entdecke Vietnam');
+    $itineraryItems = [];
+    $dayIndex = 1;
+    foreach ((array) ($ingredient ?? []) as $day) {
+        $day = is_array($day) ? (object) $day : $day;
+        $rawTitle = $day->title ?? '';
+        $dayTitle = trim((string) languageName(is_string($rawTitle) ? $rawTitle : json_encode($rawTitle)));
+        if ($dayTitle === '' || $dayTitle === 'null' || strpos($dayTitle, '[{') === 0) {
+            $dayTitle = '';
+        }
+        $rawContent = $day->content ?? '';
+        $dayContent = trim(strip_tags((string) languageName(is_string($rawContent) ? $rawContent : json_encode($rawContent))));
+        if ($dayContent === 'null') {
+            $dayContent = '';
+        }
+        if ($dayTitle === '' && $dayContent === '') {
+            continue;
+        }
+        $itineraryItems[] = [
+            '@type' => 'ListItem',
+            'position' => $dayIndex,
+            'item' => [
+                '@type' => 'TouristAttraction',
+                'name' => $dayTitle !== '' ? ('Day ' . $dayIndex . ': ' . $dayTitle) : ('Day ' . $dayIndex),
+                'description' => $dayContent,
+            ],
+        ];
+        $dayIndex++;
+    }
+
+    $tourSchema = [
+        '@context' => 'https://schema.org',
+        '@type' => 'TouristTrip',
+        'name' => $schemaName,
+        'description' => $schemaDesc,
+        'image' => array_values(array_filter([$schemaImage])),
+        'url' => url()->current(),
+        'provider' => [
+            '@type' => 'TravelAgency',
+            'name' => $schemaBrand,
+            'url' => url('/'),
+            'logo' => url('' . ($setting->logo ?? '')),
+        ],
+        'organizer' => [
+            '@type' => 'Organization',
+            'name' => $schemaBrand,
+            'url' => url('/'),
+        ],
+    ];
+    if ($schemaPrice > 0) {
+        $tourSchema['offers'] = [
+            '@type' => 'Offer',
+            'url' => url()->current(),
+            'priceCurrency' => 'USD',
+            'price' => number_format($schemaPrice, 2, '.', ''),
+            'availability' => 'https://schema.org/InStock',
+            'category' => 'Tour',
+        ];
+    }
+    if (count($itineraryItems) > 0) {
+        $tourSchema['itinerary'] = [
+            '@type' => 'ItemList',
+            'numberOfItems' => count($itineraryItems),
+            'itemListElement' => $itineraryItems,
+        ];
+    }
+
+    $breadcrumbItems = [
+        [
+            '@type' => 'ListItem',
+            'position' => 1,
+            'name' => 'Home',
+            'item' => url('/'),
+        ],
+        [
+            '@type' => 'ListItem',
+            'position' => 2,
+            'name' => 'Tours',
+            'item' => route('allProduct'),
+        ],
+    ];
+    $position = 3;
+    if (!empty($product->cate_slug)) {
+        $cateName = optional($product->cate)->name ? languageName($product->cate->name) : $product->cate_slug;
+        $breadcrumbItems[] = [
+            '@type' => 'ListItem',
+            'position' => $position,
+            'name' => $cateName,
+            'item' => route('allListProCate', ['danhmuc' => $product->cate_slug]),
+        ];
+        $position++;
+    }
+    $breadcrumbItems[] = [
+        '@type' => 'ListItem',
+        'position' => $position,
+        'name' => $schemaName,
+        'item' => url()->current(),
+    ];
+@endphp
 <script type="application/ld+json">
-{!! json_encode([
-   '@context' => 'https://schema.org',
-   '@type' => 'TouristTrip',
-   'name' => $product->name,
-   'description' => strip_tags(languageName($product->description)),
-   'image' => [url('' . $img[0])],
-   'url' => url()->current(),
-], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) !!}
+{!! json_encode($tourSchema, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) !!}
 </script>
 <script type="application/ld+json">
 {!! json_encode([
    '@context' => 'https://schema.org',
    '@type' => 'BreadcrumbList',
-   'itemListElement' => [
-      [
-         '@type' => 'ListItem',
-         'position' => 1,
-         'name' => 'Home',
-         'item' => url('/'),
-      ],
-      [
-         '@type' => 'ListItem',
-         'position' => 2,
-         'name' => 'Tour',
-         'item' => url('/'),
-      ],
-      [
-         '@type' => 'ListItem',
-         'position' => 3,
-         'name' => $product->name,
-         'item' => url()->current(),
-      ],
-   ],
+   'itemListElement' => $breadcrumbItems,
 ], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) !!}
 </script>
 @endsection
@@ -447,7 +525,8 @@ document.addEventListener('DOMContentLoaded', function () {
     $priceExcludes = array_values(array_filter((array) json_decode($product->price_excludes, true), function ($item) {
         return trim((string) $item) !== '';
     }));
-    $displayPrice = $adultPrice > 0 ? number_format($adultPrice) . ' VND' : 'Contact Us';
+    $displayPrice = formatTourPrice($adultPrice);
+    $hasPricedAmount = $adultPrice > 0;
 @endphp
 <div class="page-content sis-tour-detail-page sis-td-v2">
     <script>document.documentElement.classList.add('sis-td-page');document.body.classList.add('sis-td-page');</script>
@@ -461,6 +540,12 @@ document.addEventListener('DOMContentLoaded', function () {
                         <a class="sisf-breadcrumbs-link text-white" href="{{ route('home') }}"><span>Home</span></a>
                         <span class="text-white mx-2"><i class="fa-solid fa-chevron-right"></i></span>
                         <a class="sisf-breadcrumbs-link text-white" href="{{ route('allProduct') }}"><span>Tours</span></a>
+                        @if(!empty($product->cate_slug))
+                        <span class="text-white mx-2"><i class="fa-solid fa-chevron-right"></i></span>
+                        <a class="sisf-breadcrumbs-link text-white" href="{{ route('allListProCate', ['danhmuc' => $product->cate_slug]) }}">
+                            <span>{{ optional($product->cate)->name ? languageName($product->cate->name) : $product->cate_slug }}</span>
+                        </a>
+                        @endif
                         <span class="text-white mx-2"><i class="fa-solid fa-chevron-right"></i></span>
                         <span class="text-white">{{ $tourName }}</span>
                     </div>
@@ -539,19 +624,21 @@ document.addEventListener('DOMContentLoaded', function () {
                 </div>
                 <div class="sis-td-intro-price d-none d-lg-flex">
                     <div>
+                        @if ($hasPricedAmount)
                         <span class="sis-td-price-label">From</span>
+                        @endif
                         <div class="sis-td-price-now">
-                            @if ($adultPrice > 0)
+                            @if ($hasPricedAmount)
                                 @if ($listPrice > $adultPrice)
-                                    <s>{{ number_format($listPrice) }}</s>
+                                    <s>US$ {{ number_format($listPrice) }}</s>
                                 @endif
-                                <strong>{{ number_format($adultPrice) }} <small>VND</small></strong>
+                                <strong>US$ {{ number_format($adultPrice) }}</strong>
                             @else
-                                <strong>Contact Us</strong>
+                                <strong>Price on request</strong>
                             @endif
                         </div>
-                        @if ($adultPrice > 0)
-                        <span class="sis-td-price-unit">per person</span>
+                        @if ($hasPricedAmount)
+                        <span class="sis-td-price-unit">/ person</span>
                         @endif
                     </div>
                     <a href="#booking" class="sis-btn-default">Book now <i class="fa-solid fa-arrow-right-long"></i></a>
@@ -890,7 +977,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
     <div class="sis-td-mobile-bar" id="sis-td-mobile-bar">
         <div class="sis-td-mobile-bar-price">
+            @if ($hasPricedAmount)
             <span>From</span>
+            @endif
             <strong>{{ $displayPrice }}</strong>
         </div>
         <a href="#booking" class="sis-btn-default">Book now</a>

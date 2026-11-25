@@ -11,6 +11,9 @@ class SolutionController extends Controller
     public function detail($slug)
     {
         $data['solution'] = Solution::where('slug',$slug)->first();
+        if (!$data['solution']) {
+            abort(404);
+        }
         return view('solution',$data);
     }
 }

@@ -48,8 +48,29 @@ class Product extends Model
             if ($id) {
                 $query = Product::find($id);
                 if($query){
+                    $oldUrl = null;
+                    if (!empty($query->slug) && !empty($query->cate_slug)) {
+                        try {
+                            $oldUrl = route('detailProduct', [
+                                'cate' => $query->cate_slug,
+                                'type' => $query->type_slug ?: 'type',
+                                'id' => $query->slug,
+                            ]);
+                        } catch (\Throwable $e) {
+                            $oldUrl = null;
+                        }
+                    }
+
                     $query->name = ($request->name);
-                    $query->slug = to_slug($request->name);
+                    // Keep existing slug unless admin sends a new slug (title edit alone must not change URL).
+                    $requestedSlug = trim((string) ($request->slug ?? ''));
+                    if ($requestedSlug !== '') {
+                        $query->slug = to_slug($requestedSlug);
+                    } elseif (empty($query->slug)) {
+                        $query->slug = to_slug($request->name);
+                    }
+                    $query->seo_title = $request->seo_title ?? null;
+                    $query->meta_description = $request->meta_description ?? null;
                     $query->price = json_encode($request->price);
                     $query->price_chil = json_encode($request->price_chil);
                     $query->price_includes = json_encode($this->priceNoteList($request->price_includes));
@@ -81,6 +102,19 @@ class Product extends Model
                     $query->cate_build_pc = $request->cate_build_pc;
                     $query->service_id = $request->service_id;
                     $query->save();
+
+                    if ($oldUrl && !empty($query->slug) && !empty($query->cate_slug)) {
+                        try {
+                            $newUrl = route('detailProduct', [
+                                'cate' => $query->cate_slug,
+                                'type' => $query->type_slug ?: 'type',
+                                'id' => $query->slug,
+                            ]);
+                            recordUrlRedirect($oldUrl, $newUrl);
+                        } catch (\Throwable $e) {
+                            // ignore redirect failures
+                        }
+                    }
                     if($request->status_variant == 1){
                         // dd($request->lungtung);
                         VariantSkuValue::where('product_id',$query->id)->delete();
@@ -100,6 +134,8 @@ class Product extends Model
                 $query = new Product();
                 $query->name = ($request->name);
                 $query->slug = to_slug($request->name);
+                $query->seo_title = $request->seo_title ?? null;
+                $query->meta_description = $request->meta_description ?? null;
                 $query->price = json_encode($request->price);
                 $query->price_chil = json_encode($request->price_chil);
                 $query->price_includes = json_encode($this->priceNoteList($request->price_includes));

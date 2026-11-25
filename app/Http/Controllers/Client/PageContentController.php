@@ -13,6 +13,9 @@ class PageContentController extends Controller
     {
     	$language_current = Session::get('locale');
     	$data['pagecontentdetail'] = PageContent::where(['language'=>$language_current,'slug'=>$slug])->first();
+        if (!$data['pagecontentdetail']) {
+            abort(404);
+        }
     	return view('pageContent',$data);
     }
 }

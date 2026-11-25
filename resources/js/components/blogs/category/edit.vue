@@ -34,6 +34,20 @@
                   </div>
                 </div>
                 <div class="form-group">
+                  <label>Đường dẫn (slug) <small class="text-muted">(đổi sẽ tạo redirect 301)</small></label>
+                  <vs-input class="w-100" v-model="objData.slug" placeholder="Giữ nguyên nếu không đổi" />
+                </div>
+                <div class="form-group">
+                  <label>SEO title <small class="text-muted">(≤ 60 ký tự, không đổi URL)</small></label>
+                  <vs-input class="w-100" v-model="objData.seo_title" placeholder="Tiêu đề hiển thị trên Google" maxlength="70" />
+                  <small :class="(objData.seo_title || '').length > 60 ? 'text-danger' : 'text-muted'">{{ (objData.seo_title || '').length }}/60</small>
+                </div>
+                <div class="form-group">
+                  <label>Meta description <small class="text-muted">(≤ 160 ký tự)</small></label>
+                  <vs-textarea v-model="objData.meta_description" placeholder="Mô tả ngắn cho Google" />
+                  <small :class="(objData.meta_description || '').length > 160 ? 'text-danger' : 'text-muted'">{{ (objData.meta_description || '').length }}/160</small>
+                </div>
+                <div class="form-group">
                   <vs-input
                     class="w-100"
                     v-model="objData.path"
@@ -87,6 +101,9 @@ export default {
             content:''
           }
         ],
+        slug: "",
+        seo_title: "",
+        meta_description: "",
         path: "",
         avatar: "",
         status: "",
@@ -164,6 +181,9 @@ export default {
         }else{
           this.objData = response.data;
           this.objData.name = JSON.parse(response.data.name);
+          this.objData.slug = response.data.slug || '';
+          this.objData.seo_title = response.data.seo_title || '';
+          this.objData.meta_description = response.data.meta_description || '';
         }
       }).catch(error => {
         console.log(12);

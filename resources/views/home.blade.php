@@ -1,23 +1,35 @@
 @extends('layouts.main.master')
 @section('title')
-    {{ $setting->company }}
+    {{ seoTitle($setting->seo_title ?? '', $setting->company) }}
 @endsection
 @section('description')
-    {{ $setting->webname }}
+    {{ seoDescription($setting->meta_description ?? '', $setting->webname) }}
 @endsection
 @section('image')
     {{ url('' . $banner[0]->image) }}
 @endsection
 @section('schema')
+@php
+    $homeFaqEntity = buildFaqSchemaMainEntity($setting->footer_content ?? []);
+@endphp
     <script type="application/ld+json">
 {!! json_encode([
    '@context' => 'https://schema.org',
    '@type' => 'WebPage',
-   'name' => $setting->company,
+   'name' => seoTitle($setting->seo_title ?? '', $setting->company),
    'url' => url()->current(),
-   'description' => $setting->webname,
+   'description' => seoDescription($setting->meta_description ?? '', $setting->webname),
 ], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) !!}
 </script>
+@if(count($homeFaqEntity) > 0)
+<script type="application/ld+json">
+{!! json_encode([
+   '@context' => 'https://schema.org',
+   '@type' => 'FAQPage',
+   'mainEntity' => $homeFaqEntity,
+], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) !!}
+</script>
+@endif
 @endsection
 @section('css')
 <style>
@@ -344,7 +356,7 @@ document.addEventListener('DOMContentLoaded', function () {
                                     <div class="hero-content text-start pb-0">
                                         <!-- Hero Title Start -->
                                         <div class="sis-section-title mb-0">
-                                            <span class="sisf-subtitle text-white sis-text-anime-style-2">Welcome to Entdecke Travel</span>
+                                            <span class="sisf-subtitle text-white sis-text-anime-style-2">Welcome to Entdecke Vietnam</span>
                                             <h1 class="sis-text-anime-style-2 text-start">{!!$item->title!!}</h1>
                                             <div class="sisf-m-text" data-aos="fade-up" data-aos-delay="300">
                                                 <p class="text-white text-start">{!!$item->description!!}</p>
@@ -382,7 +394,7 @@ document.addEventListener('DOMContentLoaded', function () {
             <div class="col-lg-6">
                 <!-- Section Title Start -->
                 <div class="sisf-sis-section-title sis-section-title">
-                    <span class="sisf-m-subtitle sis-text-anime-style-3">About Entdecke Travel</span>
+                    <span class="sisf-m-subtitle sis-text-anime-style-3">About Entdecke Vietnam</span>
                     <h2 class="sisf-m-title sis-text-anime-style-3"> {{$setting->company}}</h2>
                     <div class="sisf-m-text" data-aos="fade-up" data-aos-delay="100">
                         {!!$gioithieu->description!!}
@@ -624,13 +636,7 @@ document.addEventListener('DOMContentLoaded', function () {
                                                         </div>
                                                         <div class="sis-tour-item__price">
                                                             <h3 class="mb-0 sisf-e-colored">
-                                                                @if ($tourDiscount > 0)
-                                                                    {{ number_format($tourDiscount) }} VND / Person
-                                                                @elseif ($tourPrice > 0)
-                                                                    {{ number_format($tourPrice) }} VND / Person
-                                                                @else
-                                                                    Contact Us
-                                                                @endif
+                                                                {{ formatTourPrice(tourCardPrice($tourDiscount, $tourPrice)) }}
                                                             </h3>
                                                         </div>
                                                     </div>
@@ -827,7 +833,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     <span class="sisf-m-subtitle sis-text-anime-style-3">Traveller’s Story</span>
                     <h2 class="sisf-m-title sis-text-anime-style-3">Journeys That<br> <span class="sisf-e-colored">Inspire Confidence</span></h2>
                     <div class="sisf-m-text" data-aos="fade-up" data-aos-delay="100">
-                        <p>Real travelers, unforgettable experiences. Discover why thousands trust Entdecke Travel to turn every trip into a<br> seamless and memorable adventure.</p>
+                        <p>Real travelers, unforgettable experiences. Discover why thousands trust Entdecke Vietnam to turn every trip into a<br> seamless and memorable adventure.</p>
                     </div>
                 </div>
                 <!-- Section Title End -->
@@ -844,7 +850,7 @@ document.addEventListener('DOMContentLoaded', function () {
                                     <div class="sisf-e-inner sis-radius overflow-hidden position-relative mb-0">
                                         <div class="sisf-e-testimonial-image">
                                             <figure>
-                                                <img src="{{ url('' . $item->avatar) }}" class="w-100" alt="Entdecke Travel" decoding="async" loading="lazy">
+                                                <img src="{{ url('' . $item->avatar) }}" class="w-100" alt="Entdecke Vietnam" decoding="async" loading="lazy">
                                             </figure>
                                         </div>
                                         <div class="sisf-e-top sis-e-testimonial-content p-3">
@@ -895,7 +901,7 @@ document.addEventListener('DOMContentLoaded', function () {
             <div class="col-lg-5 position-relative">
                 <div class="sis-e-faqs-image">
                     <figure class="sis-image-anime sis-reveal">
-                        <img src="/frontend/images/faqs-img.jpg" class="w-100 sis-radius" alt="Entdecke Travel" decoding="async" loading="lazy">
+                        <img src="/frontend/images/faqs-img.jpg" class="w-100 sis-radius" alt="Entdecke Vietnam" decoding="async" loading="lazy">
                     </figure>
                 </div>
                 <div class="sisf-faqs-contact-part sisf-contact-left-bottom" data-aos="zoom-in-left" data-aos-delay="500">

@@ -25,6 +25,33 @@
                   v-model="objData.name"
                 />
               </div>
+              <div class="form-group">
+                <label>Đường dẫn (slug) <small class="text-muted">(đổi sẽ tạo redirect 301 tự động)</small></label>
+                <vs-input
+                  type="text"
+                  size="default"
+                  placeholder="Để trống nếu muốn giữ nguyên khi tạo mới"
+                  class="w-100"
+                  v-model="objData.slug"
+                />
+              </div>
+              <div class="form-group">
+                <label>SEO title <small class="text-muted">(≤ 60 ký tự, không đổi URL)</small></label>
+                <vs-input
+                  type="text"
+                  size="default"
+                  placeholder="Tiêu đề hiển thị trên Google"
+                  class="w-100"
+                  v-model="objData.seo_title"
+                  maxlength="70"
+                />
+                <small :class="(objData.seo_title || '').length > 60 ? 'text-danger' : 'text-muted'">{{ (objData.seo_title || '').length }}/60</small>
+              </div>
+              <div class="form-group">
+                <label>Meta description <small class="text-muted">(≤ 160 ký tự)</small></label>
+                <vs-textarea v-model="objData.meta_description" placeholder="Mô tả ngắn cho Google" />
+                <small :class="(objData.meta_description || '').length > 160 ? 'text-danger' : 'text-muted'">{{ (objData.meta_description || '').length }}/160</small>
+              </div>
               <div class="row">
                 <div class="form-group col-md-4">
                   <label>Điểm đi</label>
@@ -399,6 +426,9 @@ export default {
         cate_build_pc:"",
         variant:[],
         name: "",
+        slug: "",
+        seo_title: "",
+        meta_description: "",
         size: [
           {
             title: "",
@@ -899,6 +929,9 @@ export default {
       this.editId({id:this.$route.params.id}).then(response => {
         this.loadings(false);
           this.objData = response.data;
+          this.objData.slug = response.data.slug || '';
+          this.objData.seo_title = response.data.seo_title || '';
+          this.objData.meta_description = response.data.meta_description || '';
           this.priceIncludesText = this.listToLines(response.data.price_includes);
           this.priceExcludesText = this.listToLines(response.data.price_excludes);
           this.objData.images = JSON.parse(response.data.images);

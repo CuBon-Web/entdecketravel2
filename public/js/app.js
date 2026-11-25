@@ -8220,6 +8220,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -8249,6 +8259,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           lang_code: "vi",
           content: ""
         }],
+        seo_title: "",
+        meta_description: "",
         cate_product: 0,
         status: 1,
         image: "",
@@ -8473,6 +8485,20 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -8488,6 +8514,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           lang_code: 'vi',
           content: ''
         }],
+        slug: "",
+        seo_title: "",
+        meta_description: "",
         path: "",
         avatar: "",
         status: ""
@@ -8578,6 +8607,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         } else {
           _this4.objData = response.data;
           _this4.objData.name = JSON.parse(response.data.name);
+          _this4.objData.slug = response.data.slug || '';
+          _this4.objData.seo_title = response.data.seo_title || '';
+          _this4.objData.meta_description = response.data.meta_description || '';
         }
       })["catch"](function (error) {
         console.log(12);
@@ -8929,6 +8961,20 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -8959,6 +9005,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           lang_code: 'vi',
           content: ''
         }],
+        slug: "",
+        seo_title: "",
+        meta_description: "",
         status: 1,
         image: "",
         author: "",
@@ -9106,6 +9155,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           _this5.objData.content = JSON.parse(response.data.content);
           _this5.objData.description = JSON.parse(response.data.description);
           _this5.objData.title = JSON.parse(response.data.title);
+          _this5.objData.slug = response.data.slug || '';
+          _this5.objData.seo_title = response.data.seo_title || '';
+          _this5.objData.meta_description = response.data.meta_description || '';
           var hs = _this5.objData.home_status;
           _this5.objData.home_status = hs === undefined || hs === null || hs === '' ? 1 : Number(hs);
         }
@@ -9812,6 +9864,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -9825,6 +9887,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           lang_code: 'vi',
           content: ''
         }],
+        seo_title: "",
+        meta_description: "",
         content: "",
         avatar: "",
         imagehome: "",
@@ -10002,6 +10066,20 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -10016,6 +10094,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           lang_code: 'vi',
           content: ''
         }],
+        slug: "",
+        seo_title: "",
+        meta_description: "",
         content: "",
         avatar: "",
         imagehome: "",
@@ -10105,6 +10186,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         } else {
           _this4.objData = response.data;
           _this4.objData.name = JSON.parse(response.data.name);
+          _this4.objData.slug = response.data.slug || '';
+          _this4.objData.seo_title = response.data.seo_title || '';
+          _this4.objData.meta_description = response.data.meta_description || '';
         }
       })["catch"](function (error) {
         console.log(12);
@@ -14133,6 +14217,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -14147,6 +14239,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           lang_code: 'vi',
           content: ''
         }],
+        seo_title: "",
+        meta_description: "",
         path: "",
         avatar: "",
         status: ""
@@ -16958,6 +17052,23 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -17002,6 +17113,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         lang: "",
         variant: [],
         name: "",
+        seo_title: "",
+        meta_description: "",
         size: [{
           title: "",
           detail: ""
@@ -18691,6 +18804,33 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -18779,6 +18919,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         cate_build_pc: "",
         variant: [],
         name: "",
+        slug: "",
+        seo_title: "",
+        meta_description: "",
         size: [{
           title: "",
           detail: ""
@@ -19312,6 +19455,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         _this11.loadings(false);
 
         _this11.objData = response.data;
+        _this11.objData.slug = response.data.slug || '';
+        _this11.objData.seo_title = response.data.seo_title || '';
+        _this11.objData.meta_description = response.data.meta_description || '';
         _this11.priceIncludesText = _this11.listToLines(response.data.price_includes);
         _this11.priceExcludesText = _this11.listToLines(response.data.price_excludes);
         _this11.objData.images = JSON.parse(response.data.images);
@@ -27244,6 +27390,45 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -27258,6 +27443,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       objData: {
         webname: "",
         company: "",
+        seo_title: "",
+        meta_description: "",
         address1: "",
         address2: "",
         phone1: "",
@@ -27267,6 +27454,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         facebook: "",
         google: "",
         GA: "",
+        ga4_id: "",
+        gtm_id: "",
         fbPixel: "",
         iframe_map: "",
         favicon: "",
@@ -27346,6 +27535,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         _this2.loadings(false);
 
         _this2.objData = response.data;
+        _this2.objData.seo_title = response.data.seo_title || '';
+        _this2.objData.meta_description = response.data.meta_description || '';
+        _this2.objData.ga4_id = response.data.ga4_id || '';
+        _this2.objData.gtm_id = response.data.gtm_id || '';
         _this2.objData.popupimage = JSON.parse(response.data.popupimage);
 
         if (response.data.footer_content == null) {
@@ -317784,6 +317977,78 @@ var render = function() {
               "div",
               { staticClass: "form-group" },
               [
+                _vm._m(0),
+                _vm._v(" "),
+                _c("vs-input", {
+                  staticClass: "w-100",
+                  attrs: {
+                    type: "text",
+                    placeholder: "Tiêu đề hiển thị trên Google",
+                    maxlength: "70"
+                  },
+                  model: {
+                    value: _vm.objData.seo_title,
+                    callback: function($$v) {
+                      _vm.$set(_vm.objData, "seo_title", $$v)
+                    },
+                    expression: "objData.seo_title"
+                  }
+                }),
+                _vm._v(" "),
+                _c(
+                  "small",
+                  {
+                    class:
+                      (_vm.objData.seo_title || "").length > 60
+                        ? "text-danger"
+                        : "text-muted"
+                  },
+                  [_vm._v(_vm._s((_vm.objData.seo_title || "").length) + "/60")]
+                )
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "form-group" },
+              [
+                _vm._m(1),
+                _vm._v(" "),
+                _c("vs-textarea", {
+                  attrs: { placeholder: "Mô tả ngắn cho Google" },
+                  model: {
+                    value: _vm.objData.meta_description,
+                    callback: function($$v) {
+                      _vm.$set(_vm.objData, "meta_description", $$v)
+                    },
+                    expression: "objData.meta_description"
+                  }
+                }),
+                _vm._v(" "),
+                _c(
+                  "small",
+                  {
+                    class:
+                      (_vm.objData.meta_description || "").length > 160
+                        ? "text-danger"
+                        : "text-muted"
+                  },
+                  [
+                    _vm._v(
+                      _vm._s((_vm.objData.meta_description || "").length) +
+                        "/160"
+                    )
+                  ]
+                )
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "form-group" },
+              [
                 _c("label", [_vm._v("Nội dung")]),
                 _vm._v(" "),
                 _c("TinyMce", {
@@ -318126,7 +318391,28 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", [
+      _vm._v("SEO title "),
+      _c("small", { staticClass: "text-muted" }, [
+        _vm._v("(≤ 60 ký tự, không đổi URL)")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", [
+      _vm._v("Meta description "),
+      _c("small", { staticClass: "text-muted" }, [_vm._v("(≤ 160 ký tự)")])
+    ])
+  }
+]
 render._withStripped = true
 
 
@@ -318228,6 +318514,102 @@ var render = function() {
                         0
                       )
                     : _vm._e()
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "form-group" },
+                [
+                  _vm._m(1),
+                  _vm._v(" "),
+                  _c("vs-input", {
+                    staticClass: "w-100",
+                    attrs: { placeholder: "Giữ nguyên nếu không đổi" },
+                    model: {
+                      value: _vm.objData.slug,
+                      callback: function($$v) {
+                        _vm.$set(_vm.objData, "slug", $$v)
+                      },
+                      expression: "objData.slug"
+                    }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "form-group" },
+                [
+                  _vm._m(2),
+                  _vm._v(" "),
+                  _c("vs-input", {
+                    staticClass: "w-100",
+                    attrs: {
+                      placeholder: "Tiêu đề hiển thị trên Google",
+                      maxlength: "70"
+                    },
+                    model: {
+                      value: _vm.objData.seo_title,
+                      callback: function($$v) {
+                        _vm.$set(_vm.objData, "seo_title", $$v)
+                      },
+                      expression: "objData.seo_title"
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "small",
+                    {
+                      class:
+                        (_vm.objData.seo_title || "").length > 60
+                          ? "text-danger"
+                          : "text-muted"
+                    },
+                    [
+                      _vm._v(
+                        _vm._s((_vm.objData.seo_title || "").length) + "/60"
+                      )
+                    ]
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "form-group" },
+                [
+                  _vm._m(3),
+                  _vm._v(" "),
+                  _c("vs-textarea", {
+                    attrs: { placeholder: "Mô tả ngắn cho Google" },
+                    model: {
+                      value: _vm.objData.meta_description,
+                      callback: function($$v) {
+                        _vm.$set(_vm.objData, "meta_description", $$v)
+                      },
+                      expression: "objData.meta_description"
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "small",
+                    {
+                      class:
+                        (_vm.objData.meta_description || "").length > 160
+                          ? "text-danger"
+                          : "text-muted"
+                    },
+                    [
+                      _vm._v(
+                        _vm._s((_vm.objData.meta_description || "").length) +
+                          "/160"
+                      )
+                    ]
+                  )
                 ],
                 1
               ),
@@ -318353,6 +318735,37 @@ var staticRenderFns = [
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "col-md-6" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", [
+      _vm._v("Đường dẫn (slug) "),
+      _c("small", { staticClass: "text-muted" }, [
+        _vm._v("(đổi sẽ tạo redirect 301)")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", [
+      _vm._v("SEO title "),
+      _c("small", { staticClass: "text-muted" }, [
+        _vm._v("(≤ 60 ký tự, không đổi URL)")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", [
+      _vm._v("Meta description "),
+      _c("small", { staticClass: "text-muted" }, [_vm._v("(≤ 160 ký tự)")])
     ])
   }
 ]
@@ -318675,6 +319088,102 @@ var render = function() {
               "div",
               { staticClass: "form-group" },
               [
+                _vm._m(0),
+                _vm._v(" "),
+                _c("vs-input", {
+                  staticClass: "w-100",
+                  attrs: {
+                    type: "text",
+                    placeholder: "Giữ nguyên nếu để trống khi lưu"
+                  },
+                  model: {
+                    value: _vm.objData.slug,
+                    callback: function($$v) {
+                      _vm.$set(_vm.objData, "slug", $$v)
+                    },
+                    expression: "objData.slug"
+                  }
+                })
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "form-group" },
+              [
+                _vm._m(1),
+                _vm._v(" "),
+                _c("vs-input", {
+                  staticClass: "w-100",
+                  attrs: {
+                    type: "text",
+                    placeholder: "Tiêu đề hiển thị trên Google",
+                    maxlength: "70"
+                  },
+                  model: {
+                    value: _vm.objData.seo_title,
+                    callback: function($$v) {
+                      _vm.$set(_vm.objData, "seo_title", $$v)
+                    },
+                    expression: "objData.seo_title"
+                  }
+                }),
+                _vm._v(" "),
+                _c(
+                  "small",
+                  {
+                    class:
+                      (_vm.objData.seo_title || "").length > 60
+                        ? "text-danger"
+                        : "text-muted"
+                  },
+                  [_vm._v(_vm._s((_vm.objData.seo_title || "").length) + "/60")]
+                )
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "form-group" },
+              [
+                _vm._m(2),
+                _vm._v(" "),
+                _c("vs-textarea", {
+                  attrs: { placeholder: "Mô tả ngắn cho Google" },
+                  model: {
+                    value: _vm.objData.meta_description,
+                    callback: function($$v) {
+                      _vm.$set(_vm.objData, "meta_description", $$v)
+                    },
+                    expression: "objData.meta_description"
+                  }
+                }),
+                _vm._v(" "),
+                _c(
+                  "small",
+                  {
+                    class:
+                      (_vm.objData.meta_description || "").length > 160
+                        ? "text-danger"
+                        : "text-muted"
+                  },
+                  [
+                    _vm._v(
+                      _vm._s((_vm.objData.meta_description || "").length) +
+                        "/160"
+                    )
+                  ]
+                )
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "form-group" },
+              [
                 _c("label", [_vm._v("Nội dung")]),
                 _vm._v(" "),
                 _c("TinyMce", {
@@ -318988,7 +319497,39 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", [
+      _vm._v("Đường dẫn (slug) "),
+      _c("small", { staticClass: "text-muted" }, [
+        _vm._v("(đổi sẽ tạo redirect 301)")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", [
+      _vm._v("SEO title "),
+      _c("small", { staticClass: "text-muted" }, [
+        _vm._v("(≤ 60 ký tự, không đổi URL)")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", [
+      _vm._v("Meta description "),
+      _c("small", { staticClass: "text-muted" }, [_vm._v("(≤ 160 ký tự)")])
+    ])
+  }
+]
 render._withStripped = true
 
 
@@ -319817,6 +320358,81 @@ var render = function() {
                 "div",
                 { staticClass: "form-group" },
                 [
+                  _vm._m(1),
+                  _vm._v(" "),
+                  _c("vs-input", {
+                    staticClass: "w-100",
+                    attrs: {
+                      placeholder: "Tiêu đề hiển thị trên Google",
+                      maxlength: "70"
+                    },
+                    model: {
+                      value: _vm.objData.seo_title,
+                      callback: function($$v) {
+                        _vm.$set(_vm.objData, "seo_title", $$v)
+                      },
+                      expression: "objData.seo_title"
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "small",
+                    {
+                      class:
+                        (_vm.objData.seo_title || "").length > 60
+                          ? "text-danger"
+                          : "text-muted"
+                    },
+                    [
+                      _vm._v(
+                        _vm._s((_vm.objData.seo_title || "").length) + "/60"
+                      )
+                    ]
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "form-group" },
+                [
+                  _vm._m(2),
+                  _vm._v(" "),
+                  _c("vs-textarea", {
+                    attrs: { placeholder: "Mô tả ngắn cho Google" },
+                    model: {
+                      value: _vm.objData.meta_description,
+                      callback: function($$v) {
+                        _vm.$set(_vm.objData, "meta_description", $$v)
+                      },
+                      expression: "objData.meta_description"
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "small",
+                    {
+                      class:
+                        (_vm.objData.meta_description || "").length > 160
+                          ? "text-danger"
+                          : "text-muted"
+                    },
+                    [
+                      _vm._v(
+                        _vm._s((_vm.objData.meta_description || "").length) +
+                          "/160"
+                      )
+                    ]
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "form-group" },
+                [
                   _c("label", [_vm._v("Ảnh bìa")]),
                   _vm._v(" "),
                   _c("image-upload", {
@@ -319952,6 +320568,26 @@ var staticRenderFns = [
       _vm._v(" "),
       _c("div", { staticClass: "col-md-3" })
     ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", [
+      _vm._v("SEO title "),
+      _c("small", { staticClass: "text-muted" }, [
+        _vm._v("(≤ 60 ký tự, không đổi URL)")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", [
+      _vm._v("Meta description "),
+      _c("small", { staticClass: "text-muted" }, [_vm._v("(≤ 160 ký tự)")])
+    ])
   }
 ]
 render._withStripped = true
@@ -320054,6 +320690,102 @@ var render = function() {
                         0
                       )
                     : _vm._e()
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "form-group" },
+                [
+                  _vm._m(1),
+                  _vm._v(" "),
+                  _c("vs-input", {
+                    staticClass: "w-100",
+                    attrs: { placeholder: "Giữ nguyên nếu không đổi" },
+                    model: {
+                      value: _vm.objData.slug,
+                      callback: function($$v) {
+                        _vm.$set(_vm.objData, "slug", $$v)
+                      },
+                      expression: "objData.slug"
+                    }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "form-group" },
+                [
+                  _vm._m(2),
+                  _vm._v(" "),
+                  _c("vs-input", {
+                    staticClass: "w-100",
+                    attrs: {
+                      placeholder: "Tiêu đề hiển thị trên Google",
+                      maxlength: "70"
+                    },
+                    model: {
+                      value: _vm.objData.seo_title,
+                      callback: function($$v) {
+                        _vm.$set(_vm.objData, "seo_title", $$v)
+                      },
+                      expression: "objData.seo_title"
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "small",
+                    {
+                      class:
+                        (_vm.objData.seo_title || "").length > 60
+                          ? "text-danger"
+                          : "text-muted"
+                    },
+                    [
+                      _vm._v(
+                        _vm._s((_vm.objData.seo_title || "").length) + "/60"
+                      )
+                    ]
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "form-group" },
+                [
+                  _vm._m(3),
+                  _vm._v(" "),
+                  _c("vs-textarea", {
+                    attrs: { placeholder: "Mô tả ngắn cho Google" },
+                    model: {
+                      value: _vm.objData.meta_description,
+                      callback: function($$v) {
+                        _vm.$set(_vm.objData, "meta_description", $$v)
+                      },
+                      expression: "objData.meta_description"
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "small",
+                    {
+                      class:
+                        (_vm.objData.meta_description || "").length > 160
+                          ? "text-danger"
+                          : "text-muted"
+                    },
+                    [
+                      _vm._v(
+                        _vm._s((_vm.objData.meta_description || "").length) +
+                          "/160"
+                      )
+                    ]
+                  )
                 ],
                 1
               ),
@@ -320196,6 +320928,37 @@ var staticRenderFns = [
       _c("div", { staticClass: "col-md-6" }),
       _vm._v(" "),
       _c("div", { staticClass: "col-md-3" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", [
+      _vm._v("Đường dẫn (slug) "),
+      _c("small", { staticClass: "text-muted" }, [
+        _vm._v("(đổi sẽ tạo redirect 301)")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", [
+      _vm._v("SEO title "),
+      _c("small", { staticClass: "text-muted" }, [
+        _vm._v("(≤ 60 ký tự, không đổi URL)")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", [
+      _vm._v("Meta description "),
+      _c("small", { staticClass: "text-muted" }, [_vm._v("(≤ 160 ký tự)")])
     ])
   }
 ]
@@ -325197,6 +325960,50 @@ var render = function() {
           "div",
           { staticClass: "form-group" },
           [
+            _vm._m(0),
+            _vm._v(" "),
+            _c("vs-input", {
+              staticClass: "w-100",
+              attrs: {
+                placeholder: "Tiêu đề hiển thị trên Google",
+                maxlength: "70"
+              },
+              model: {
+                value: _vm.objData.seo_title,
+                callback: function($$v) {
+                  _vm.$set(_vm.objData, "seo_title", $$v)
+                },
+                expression: "objData.seo_title"
+              }
+            })
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "form-group" },
+          [
+            _vm._m(1),
+            _vm._v(" "),
+            _c("vs-textarea", {
+              attrs: { placeholder: "Mô tả ngắn cho Google" },
+              model: {
+                value: _vm.objData.meta_description,
+                callback: function($$v) {
+                  _vm.$set(_vm.objData, "meta_description", $$v)
+                },
+                expression: "objData.meta_description"
+              }
+            })
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "form-group" },
+          [
             _c("vs-input", {
               staticClass: "w-100",
               attrs: { "font-size": "40px", "label-placeholder": "Link" },
@@ -325291,7 +326098,26 @@ var render = function() {
     )
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", [
+      _vm._v("SEO title "),
+      _c("small", { staticClass: "text-muted" }, [_vm._v("(≤ 60 ký tự)")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", [
+      _vm._v("Meta description "),
+      _c("small", { staticClass: "text-muted" }, [_vm._v("(≤ 160 ký tự)")])
+    ])
+  }
+]
 render._withStripped = true
 
 
@@ -328362,6 +329188,83 @@ var render = function() {
                 1
               ),
               _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "form-group" },
+                [
+                  _vm._m(0),
+                  _vm._v(" "),
+                  _c("vs-input", {
+                    staticClass: "w-100",
+                    attrs: {
+                      type: "text",
+                      size: "default",
+                      placeholder: "Tiêu đề hiển thị trên Google",
+                      maxlength: "70"
+                    },
+                    model: {
+                      value: _vm.objData.seo_title,
+                      callback: function($$v) {
+                        _vm.$set(_vm.objData, "seo_title", $$v)
+                      },
+                      expression: "objData.seo_title"
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "small",
+                    {
+                      class:
+                        (_vm.objData.seo_title || "").length > 60
+                          ? "text-danger"
+                          : "text-muted"
+                    },
+                    [
+                      _vm._v(
+                        _vm._s((_vm.objData.seo_title || "").length) + "/60"
+                      )
+                    ]
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "form-group" },
+                [
+                  _vm._m(1),
+                  _vm._v(" "),
+                  _c("vs-textarea", {
+                    attrs: { placeholder: "Mô tả ngắn cho Google" },
+                    model: {
+                      value: _vm.objData.meta_description,
+                      callback: function($$v) {
+                        _vm.$set(_vm.objData, "meta_description", $$v)
+                      },
+                      expression: "objData.meta_description"
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "small",
+                    {
+                      class:
+                        (_vm.objData.meta_description || "").length > 160
+                          ? "text-danger"
+                          : "text-muted"
+                    },
+                    [
+                      _vm._v(
+                        _vm._s((_vm.objData.meta_description || "").length) +
+                          "/160"
+                      )
+                    ]
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
               _c("div", { staticClass: "row" }, [
                 _c(
                   "div",
@@ -329014,7 +329917,7 @@ var render = function() {
                   "div",
                   { staticClass: "day-toolbar" },
                   [
-                    _vm._m(0),
+                    _vm._m(2),
                     _vm._v(" "),
                     _c(
                       "vs-button",
@@ -329315,6 +330218,26 @@ var render = function() {
   ])
 }
 var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", [
+      _vm._v("SEO title "),
+      _c("small", { staticClass: "text-muted" }, [
+        _vm._v("(≤ 60 ký tự, không đổi URL)")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", [
+      _vm._v("Meta description "),
+      _c("small", { staticClass: "text-muted" }, [_vm._v("(≤ 160 ký tự)")])
+    ])
+  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -330778,6 +331701,108 @@ var render = function() {
                 1
               ),
               _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "form-group" },
+                [
+                  _vm._m(0),
+                  _vm._v(" "),
+                  _c("vs-input", {
+                    staticClass: "w-100",
+                    attrs: {
+                      type: "text",
+                      size: "default",
+                      placeholder: "Để trống nếu muốn giữ nguyên khi tạo mới"
+                    },
+                    model: {
+                      value: _vm.objData.slug,
+                      callback: function($$v) {
+                        _vm.$set(_vm.objData, "slug", $$v)
+                      },
+                      expression: "objData.slug"
+                    }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "form-group" },
+                [
+                  _vm._m(1),
+                  _vm._v(" "),
+                  _c("vs-input", {
+                    staticClass: "w-100",
+                    attrs: {
+                      type: "text",
+                      size: "default",
+                      placeholder: "Tiêu đề hiển thị trên Google",
+                      maxlength: "70"
+                    },
+                    model: {
+                      value: _vm.objData.seo_title,
+                      callback: function($$v) {
+                        _vm.$set(_vm.objData, "seo_title", $$v)
+                      },
+                      expression: "objData.seo_title"
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "small",
+                    {
+                      class:
+                        (_vm.objData.seo_title || "").length > 60
+                          ? "text-danger"
+                          : "text-muted"
+                    },
+                    [
+                      _vm._v(
+                        _vm._s((_vm.objData.seo_title || "").length) + "/60"
+                      )
+                    ]
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "form-group" },
+                [
+                  _vm._m(2),
+                  _vm._v(" "),
+                  _c("vs-textarea", {
+                    attrs: { placeholder: "Mô tả ngắn cho Google" },
+                    model: {
+                      value: _vm.objData.meta_description,
+                      callback: function($$v) {
+                        _vm.$set(_vm.objData, "meta_description", $$v)
+                      },
+                      expression: "objData.meta_description"
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "small",
+                    {
+                      class:
+                        (_vm.objData.meta_description || "").length > 160
+                          ? "text-danger"
+                          : "text-muted"
+                    },
+                    [
+                      _vm._v(
+                        _vm._s((_vm.objData.meta_description || "").length) +
+                          "/160"
+                      )
+                    ]
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
               _c("div", { staticClass: "row" }, [
                 _c(
                   "div",
@@ -331430,7 +332455,7 @@ var render = function() {
                   "div",
                   { staticClass: "day-toolbar" },
                   [
-                    _vm._m(0),
+                    _vm._m(3),
                     _vm._v(" "),
                     _c(
                       "vs-button",
@@ -331731,6 +332756,37 @@ var render = function() {
   ])
 }
 var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", [
+      _vm._v("Đường dẫn (slug) "),
+      _c("small", { staticClass: "text-muted" }, [
+        _vm._v("(đổi sẽ tạo redirect 301 tự động)")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", [
+      _vm._v("SEO title "),
+      _c("small", { staticClass: "text-muted" }, [
+        _vm._v("(≤ 60 ký tự, không đổi URL)")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", [
+      _vm._v("Meta description "),
+      _c("small", { staticClass: "text-muted" }, [_vm._v("(≤ 160 ký tự)")])
+    ])
+  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -341239,6 +342295,83 @@ var render = function() {
                 "div",
                 { staticClass: "form-group" },
                 [
+                  _vm._m(0),
+                  _vm._v(" "),
+                  _c("vs-input", {
+                    staticClass: "w-100",
+                    attrs: {
+                      type: "text",
+                      size: "default",
+                      placeholder: "Tiêu đề Google cho trang chủ",
+                      maxlength: "70"
+                    },
+                    model: {
+                      value: _vm.objData.seo_title,
+                      callback: function($$v) {
+                        _vm.$set(_vm.objData, "seo_title", $$v)
+                      },
+                      expression: "objData.seo_title"
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "small",
+                    {
+                      class:
+                        (_vm.objData.seo_title || "").length > 60
+                          ? "text-danger"
+                          : "text-muted"
+                    },
+                    [
+                      _vm._v(
+                        _vm._s((_vm.objData.seo_title || "").length) + "/60"
+                      )
+                    ]
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "form-group" },
+                [
+                  _vm._m(1),
+                  _vm._v(" "),
+                  _c("vs-textarea", {
+                    attrs: { placeholder: "Mô tả Google cho trang chủ" },
+                    model: {
+                      value: _vm.objData.meta_description,
+                      callback: function($$v) {
+                        _vm.$set(_vm.objData, "meta_description", $$v)
+                      },
+                      expression: "objData.meta_description"
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "small",
+                    {
+                      class:
+                        (_vm.objData.meta_description || "").length > 160
+                          ? "text-danger"
+                          : "text-muted"
+                    },
+                    [
+                      _vm._v(
+                        _vm._s((_vm.objData.meta_description || "").length) +
+                          "/160"
+                      )
+                    ]
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "form-group" },
+                [
                   _c("label", [_vm._v("Văn phòng đại diện")]),
                   _vm._v(" "),
                   _c("vs-input", {
@@ -341403,6 +342536,64 @@ var render = function() {
                       expression: "objData.google"
                     }
                   })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "form-group" },
+                [
+                  _c("label", [_vm._v("Google Analytics 4")]),
+                  _vm._v(" "),
+                  _c("vs-input", {
+                    staticClass: "w-100",
+                    attrs: {
+                      type: "text",
+                      size: "default",
+                      placeholder: "G-XXXXXXXXXX"
+                    },
+                    model: {
+                      value: _vm.objData.ga4_id,
+                      callback: function($$v) {
+                        _vm.$set(_vm.objData, "ga4_id", $$v)
+                      },
+                      expression: "objData.ga4_id"
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("small", { staticClass: "text-muted" }, [
+                    _vm._v("Measurement ID (bắt đầu bằng G-)")
+                  ])
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "form-group" },
+                [
+                  _c("label", [_vm._v("Google Tag Manager")]),
+                  _vm._v(" "),
+                  _c("vs-input", {
+                    staticClass: "w-100",
+                    attrs: {
+                      type: "text",
+                      size: "default",
+                      placeholder: "GTM-XXXXXXX"
+                    },
+                    model: {
+                      value: _vm.objData.gtm_id,
+                      callback: function($$v) {
+                        _vm.$set(_vm.objData, "gtm_id", $$v)
+                      },
+                      expression: "objData.gtm_id"
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("small", { staticClass: "text-muted" }, [
+                    _vm._v("Container ID (bắt đầu bằng GTM-)")
+                  ])
                 ],
                 1
               ),
@@ -341806,7 +342997,26 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", [
+      _vm._v("SEO title trang chủ "),
+      _c("small", { staticClass: "text-muted" }, [_vm._v("(≤ 60 ký tự)")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", [
+      _vm._v("Meta description trang chủ "),
+      _c("small", { staticClass: "text-muted" }, [_vm._v("(≤ 160 ký tự)")])
+    ])
+  }
+]
 render._withStripped = true
 
 
