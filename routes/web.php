@@ -88,10 +88,17 @@ Route::group(['namespace'=>'Client','middleware' => ['checkLanguage']], function
 
     Route::get('auth/facebook', 'FacebookController@redirectToFacebook')->name('loginFacebook');
     Route::get('auth/facebook/callback', 'FacebookController@handleFacebookCallback'); 
+    Route::get('blogs/{slug}.html', 'BlogController@detailBlog')->name('detailBlog');
+    Route::get('{slug}.html', 'BlogController@listCateBlog')->where('slug', 'blogs')->name('listCateBlog');
+
     Route::group(['prefix'=>'news'], function(){
-        Route::get('category/{slug}.html','BlogController@listCateBlog')->name('listCateBlog');
+        Route::get('category/{slug}.html', function ($slug) {
+            return redirect()->route('listCateBlog', ['slug' => $slug], 301);
+        });
         Route::get('type-category/{slug}.html','BlogController@listTypeBlog')->name('listTypeBlog');
-        Route::get('detail/{slug}.html','BlogController@detailBlog')->name('detailBlog');
+        Route::get('detail/{slug}.html', function ($slug) {
+            return redirect()->route('detailBlog', ['slug' => $slug], 301);
+        });
     });
 
     Route::get('search', 'SearchController@index')->name('globalSearch');

@@ -97,21 +97,51 @@ if(!function_exists('languageName')){
         }
 
         if (!is_iterable($arr)) {
-            return $arrName;
+            return is_string($arrName) ? $arrName : '';
         }
-        $session =  Session::get('localelang');
-        if($session != null){
-            $code = Session::get('localelang');
-        }else{
-            Session::put('localelang', app()->getLocale());
-        }
+
         $code = Session::get('localelang');
-        foreach($arr as $item){
-            if(isset($item->lang_code) && $item->lang_code == $code){
-                return $item->content;
+        if ($code === null || $code === '') {
+            $code = app()->getLocale() ?: 'vi';
+            Session::put('localelang', $code);
+        }
+
+        $fallbackVi = null;
+        $fallbackFirst = null;
+
+        foreach ($arr as $item) {
+            if (is_array($item)) {
+                $itemLang = $item['lang_code'] ?? null;
+                $itemContent = $item['content'] ?? null;
+            } elseif (is_object($item)) {
+                $itemLang = $item->lang_code ?? null;
+                $itemContent = $item->content ?? null;
+            } else {
+                continue;
+            }
+
+            if ($itemLang !== null && $itemLang == $code) {
+                return $itemContent !== null ? $itemContent : '';
+            }
+
+            if ($fallbackVi === null && $itemLang === 'vi' && $itemContent !== null) {
+                $fallbackVi = $itemContent;
+            }
+
+            if ($fallbackFirst === null && $itemContent !== null) {
+                $fallbackFirst = $itemContent;
             }
         }
-        return $arrName;
+
+        if ($fallbackVi !== null) {
+            return $fallbackVi;
+        }
+
+        if ($fallbackFirst !== null) {
+            return $fallbackFirst;
+        }
+
+        return is_string($arrName) ? $arrName : '';
     }
 }
 if(!function_exists('checkExistCart')){

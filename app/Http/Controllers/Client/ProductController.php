@@ -265,6 +265,9 @@ class ProductController extends Controller
         $data['list'] = $this->applyListFilters($request, $product)->paginate(12)->appends($request->query());
         $data['cateno'] = Category::where('slug',$danhmuc)->first(['id','name','avatar','content','slug','seo_title','meta_description']);
         if (!$data['cateno']) {
+            if (\App\models\blog\BlogCategory::where('slug', $danhmuc)->exists()) {
+                return app(\App\Http\Controllers\Client\BlogController::class)->listCateBlog($danhmuc);
+            }
             abort(404);
         }
         

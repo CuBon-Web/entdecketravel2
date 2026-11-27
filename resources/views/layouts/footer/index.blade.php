@@ -165,17 +165,12 @@
                         <div class="col-lg-6">
                             <div class="footer-privacy-policy">
                                 <ul class="list-unstyled d-flex align-items-center justify-content-end gap-4 p-0 m-0 flex-wrap">
-                                    <li><a href="{{ route('pagecontent', ['slug' => 'huong-dan-thanh-toan']) }}" class="text-white">Payment Guide</a></li>
-                                    <li><a href="{{ route('pagecontent', ['slug' => 'chinh-sach-bao-hanh']) }}" class="text-white">Warranty Policy</a></li>
-                                    <li><a href="{{ route('lienHe') }}" class="text-white">Contact</a></li>
+                                    @foreach ($pageContent as $item)
+                                        @if ($item->type == 'ho-tro-khanh-hang')
+                                        <li><a href="{{ route('pagecontent', ['slug' => $item->slug]) }}" class="text-white">{{ ($item->title) }}</a></li>
+                                        @endif
+                                    @endforeach
                                 </ul>
                             </div>
                         </div>
                     </div>
-                </div>
-                <!-- Footer Copyright Section End -->
-            </div>
-        </div>
-    </div>
-</footer>
-<!-- Footer End -->
